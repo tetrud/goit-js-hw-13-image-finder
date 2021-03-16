@@ -15,16 +15,16 @@ function onSearchImages(event) {
 
   imagesApiService.query = event.currentTarget.elements.query.value;
 
+  if (!imagesApiService.query.trim()) {
+    messageError();
+    return;
+  }
+
   imagesApiService.resetPage();
   scrollToHandler();
 
   imagesApiService.fetchImages().then(images => {
-    if (!imagesApiService.query.trim()) {
-      messageError();
-      return;
-    }
     clearImagesContainer();
-
     createImagesMarkup(images);
   });
 }
